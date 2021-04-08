@@ -3,8 +3,11 @@ package edu.ncsu.csc216.wolf_tasks.model.tasks;
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
 
 /**
- * Class representing a Task object. A task object has a name, description, and
- * can be recurring and active. A POJO style object that has getters,
+ * Class representing a Task object that will be a part of a TaskList
+ * collection. A task object has a name, description, and can be recurring and
+ * active. A POJO style object that has getters, and setters. Implements
+ * Cloneable and has a clone method to clone a Task object. Has a toString
+ * method to return String for file output and NotebookWriter class. 
  * 
  * @author anthonypulsone
  *

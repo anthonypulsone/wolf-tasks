@@ -13,7 +13,10 @@ import edu.ncsu.csc216.wolf_tasks.model.util.ISortedList;
 
 /**
  * Class that represents the Notebook for the system. A Notebook knows its
- * activeTaskList, currentTaskList (the currently selected TaskList
+ * activeTaskList, currentTaskList (the currently selected TaskList), and
+ * taskLists(collection of task lists in the notebook). Has constructor and
+ * methods handle changes such as add/remove/edits to TaskLists and the Tasks
+ * within them.
  * 
  * @author anthonypulsone
  *
@@ -143,10 +146,11 @@ public class Notebook {
 	}
 
 	/**
-	 * An IAE is thrown if the currentTaskList is an ActiveTaskList, if the new name
-	 * matches “Active Tasks” (case insensitive), or is a duplicate of the name of
-	 * another TaskList (case insensitive and including if the name is the same as
-	 * the list that will be renamed). isChanged is updated to true.
+	 * Method to edit a TaskList. An IAE is thrown if the currentTaskList is an
+	 * ActiveTaskList, if the new name matches “Active Tasks” (case insensitive), or
+	 * is a duplicate of the name of another TaskList (case insensitive and
+	 * including if the name is the same as the list that will be renamed).
+	 * isChanged is updated to true.
 	 * 
 	 * @param name the name of that TaskList that is going to be edited
 	 * @throws IllegalArgumentException if TaskList already exists
@@ -156,9 +160,10 @@ public class Notebook {
 	}
 
 	/**
-	 * Removes the currentTaskList. An IAE is thrown if the currentTaskList is an ActiveTaskList with the message
-	 * “The Active Tasks list may not be deleted.”. Otherwise, the currentTaskList
-	 * is removed and then set to the activeTaskList. isChanged is updated to true.
+	 * Removes the currentTaskList. An IAE is thrown if the currentTaskList is an
+	 * ActiveTaskList with the message “The Active Tasks list may not be deleted.”.
+	 * Otherwise, the currentTaskList is removed and then set to the activeTaskList.
+	 * isChanged is updated to true.
 	 * 
 	 * @throws IllegalArgumentException if currentTaskList is the ActiveTaskList
 	 */
@@ -187,11 +192,13 @@ public class Notebook {
 	 * This is a place where the helper method getActiveTaskList() can be helpful.
 	 * isChanged is updated to true.
 	 * 
-	 * @param idx the index of the Task that is being edited
-	 * @param taskName String containing the name of the task
-	 * @param taskDescription String containing the description of the task 
-	 * @param recurring boolean representing whether or not the task is recurring
-	 * @param active boolean representing whether the task is currently active 
+	 * @param idx             the index of the Task that is being edited
+	 * @param taskName        String containing the name of the task
+	 * @param taskDescription String containing the description of the task
+	 * @param recurring       boolean representing whether or not the task is
+	 *                        recurring
+	 * @param active          boolean representing whether the task is currently
+	 *                        active
 	 */
 	public void editTask(int idx, String taskName, String taskDescription, boolean recurring,
 			boolean active) {
