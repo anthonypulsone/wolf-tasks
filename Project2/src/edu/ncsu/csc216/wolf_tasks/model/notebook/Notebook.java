@@ -12,6 +12,8 @@ import edu.ncsu.csc216.wolf_tasks.model.tasks.TaskList;
 import edu.ncsu.csc216.wolf_tasks.model.util.ISortedList;
 
 /**
+ * 
+ * 
  * @author anthonypulsone
  *
  */
@@ -37,7 +39,7 @@ public class Notebook {
 	/**
 	 * @param fileName
 	 */
-	public void saveNoteBook(File fileName) {
+	public void saveNotebook(File fileName) {
 		
 	}
 	
