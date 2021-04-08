@@ -116,7 +116,7 @@ public class Task implements Cloneable {
 	/**
 	 *
 	 */
-	public Object clone() {
+	public Object clone() throws CloneNotSupportedException {
 		return null;
 	}
 	
