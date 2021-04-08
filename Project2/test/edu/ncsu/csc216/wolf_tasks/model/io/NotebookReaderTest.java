@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * Test class for Notebook Reader
+ * 
  * @author anthonypulsone
  *
  */
