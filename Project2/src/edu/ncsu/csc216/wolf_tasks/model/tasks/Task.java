@@ -1,13 +1,14 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
 import edu.ncsu.csc216.wolf_tasks.model.util.ISwapList;
+import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
 
 /**
  * Class representing a Task object that will be a part of a TaskList
  * collection. A task object has a name, description, and can be recurring and
  * active. A POJO style object that has getters, and setters. Implements
  * Cloneable and has a clone method to clone a Task object. Has a toString
- * method to return String for file output and NotebookWriter class. 
+ * method to return String for file output and NotebookWriter class.
  * 
  * @author anthonypulsone
  *
@@ -35,6 +36,11 @@ public class Task implements Cloneable {
 	 * @param active      boolean representing whether the task is currently active
 	 */
 	public Task(String taskName, String taskDetails, boolean recurring, boolean active) {
+		setTaskName(taskName);
+		setTaskDescription(taskDetails);
+		setRecurring(recurring);
+		setActive(active);
+		taskLists = new SwapList<AbstractTaskList>();
 
 	}
 
@@ -44,16 +50,20 @@ public class Task implements Cloneable {
 	 * @return the Task name String
 	 */
 	public String getTaskName() {
-		return null;
+		return taskName;
 	}
 
 	/**
 	 * Setter method to set the Task name
 	 * 
 	 * @param name the name that you are setting the task to
+	 * @throws IllegalArgumentException if parameter is null or empty
 	 */
 	public void setTaskName(String name) {
-
+		if (name == null || "".equals(name)) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskName = name;
 	}
 
 	/**
@@ -62,7 +72,7 @@ public class Task implements Cloneable {
 	 * @return the String description of the Task
 	 */
 	public String getTaskDescription() {
-		return null;
+		return taskDescription;
 	}
 
 	/**
@@ -71,7 +81,10 @@ public class Task implements Cloneable {
 	 * @param description the description of the Task
 	 */
 	public void setTaskDescription(String description) {
-
+		if (description == null || "".equals(description)) {
+			throw new IllegalArgumentException("Incomplete task information.");
+		}
+		this.taskDescription = description;
 	}
 
 	/**
@@ -80,7 +93,7 @@ public class Task implements Cloneable {
 	 * @return boolean true or false depending whether recurring or not
 	 */
 	public boolean isRecurring() {
-		return false;
+		return recurring;
 	}
 
 	/**
@@ -90,7 +103,7 @@ public class Task implements Cloneable {
 	 *                  or not
 	 */
 	public void setRecurring(boolean recurring) {
-
+		this.recurring = recurring;
 	}
 
 	/**
@@ -100,7 +113,7 @@ public class Task implements Cloneable {
 	 *         not
 	 */
 	public boolean isActive() {
-		return false;
+		return active;
 	}
 
 	/**
@@ -110,7 +123,7 @@ public class Task implements Cloneable {
 	 *               or not
 	 */
 	public void setActive(boolean active) {
-
+		this.active = active;
 	}
 
 	/**
@@ -122,19 +135,37 @@ public class Task implements Cloneable {
 	 * @return the TaskList name as a String
 	 */
 	public String getTaskListName() {
-		return null;
+		String rtn; // if there is a IOOBE passed through taskList.get(0) it must be null so ""
+		// empty string is passed
+		try {
+			rtn = taskLists.get(0).getTaskListName();
+		} catch (IndexOutOfBoundsException e) {
+			rtn = "";
+		}
+		return rtn;
 	}
 
 	/**
-	 * If the AbstractTaskList is NOT already registered with the Task the
+	 * If the AbstractTaskList is not already registered with the Task the
 	 * AbstractTaskList is added to the end of the taskLists field. If the parameter
 	 * is null an IAE is thrown with message “Incomplete task information.”
 	 * 
-	 * @param taskLists the TaskList to register the Task to
+	 * @param taskList the TaskList to register the Task to
 	 * @throws IllegalArgumentException if parameter is null
 	 */
-	public void addTaskList(AbstractTaskList taskLists) {
-
+	public void addTaskList(AbstractTaskList taskList) {
+		if (taskList == null) {
+			throw new IllegalArgumentException();
+		}
+		boolean alreadyAdded = false;
+		for (int i = 0; i < taskLists.size(); i++) {
+			if (taskLists.get(i).getTaskListName().equals(taskList.getTaskListName())) {
+				alreadyAdded = true;
+			}
+		}
+		if (alreadyAdded) {
+			taskLists.add(taskList);
+		}
 	}
 
 	/**
@@ -144,23 +175,40 @@ public class Task implements Cloneable {
 	 * registered AbstractTaskList.
 	 */
 	public void completeTask() {
-
+		for (int i = 0; i < taskLists.size(); i++) {
+			
+			try {
+				taskLists.get(i).completeTask((Task) clone());
+				if (isRecurring()) {
+					taskLists.get(i).addTask((Task) clone());
+				}
+			} catch (CloneNotSupportedException e) {
+				// do nothing
+			}
+		}
 	}
 
 	/**
 	 * Returns a copy of the Task. If there are no AbstractTaskLists registered with
 	 * the Task then a CloneNotSupportedException is thrown with the message “Cannot
-	 * clone.”. Otherwise, a new Task is created with copies of all the fields. Note
-	 * that when copying the taskLists field, that you need to make a new SwapList
-	 * but you want to keep the references to the same AbstractTaskList objects;
-	 * don’t clone the AbstractTaskLists
+	 * clone.”. Otherwise, a new Task is created with copies of all the fields. The
+	 * TaskLists from the current instance are added to the clones taskLists
 	 * 
-	 * @return the copied object
+	 * @return the cloned Task
 	 * @throws CloneNotSupportedException is thrown if there are not
 	 *                                    AbstractTaskLists registered with the Task
 	 */
 	public Object clone() throws CloneNotSupportedException {
-		return null;
+		try {
+			taskLists.get(0);
+		} catch (IndexOutOfBoundsException e) {
+			throw new CloneNotSupportedException();
+		}
+		Task clone = new Task(taskName, taskDescription, recurring, active);
+		for (int i = 0; i < taskLists.size(); i++) {
+			clone.addTaskList(taskLists.get(i));
+		}
+		return clone;
 	}
 
 	/**
@@ -171,7 +219,18 @@ public class Task implements Cloneable {
 	 * @return String representation of the Task
 	 */
 	public String toString() {
-		return null;
+		String rtn = "* " + getTaskName() + ",";
+		if (isRecurring()) {
+			rtn += "recurring";
+		}
+		if(isRecurring() && isActive()) {
+			rtn += ",";
+		}
+		if (isActive()) {
+			rtn += "active";
+		}
+		rtn += "\n" + getTaskDescription();
+		return rtn;
 	}
 
 }

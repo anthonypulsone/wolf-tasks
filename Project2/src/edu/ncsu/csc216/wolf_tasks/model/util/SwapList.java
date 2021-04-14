@@ -36,7 +36,6 @@ public class SwapList<E> implements ISwapList<E> {
 	 * 
 	 * @param element element to add
 	 * @throws NullPointerException     if element is null
-	 * @throws IllegalArgumentException if element cannot be added
 	 */
 	@Override
 	public void add(E element) {

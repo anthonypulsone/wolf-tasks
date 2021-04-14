@@ -35,7 +35,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	private void checkIndex(int idx) {
 		if (idx < 0 || idx >= size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Invalid index.");
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 			throw new NullPointerException();
 		}
 		if (contains(element)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Cannot add duplicate element");
 		}
 		if (front == null) {
 			front = new ListNode(element);
