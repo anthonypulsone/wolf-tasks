@@ -27,10 +27,14 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * message “Cannot add task to Active Tasks.”
 	 * 
 	 * @param task the Task that is being added
+	 * @throw IllegalArgumentException if the task is not active
 	 */
 	@Override
 	public void addTask(Task task) {
-
+		if (!task.isActive()) {
+			throw new IllegalArgumentException("Cannot add task to Active Tasks.");
+		}
+		super.addTask(task);
 	}
 
 	/**
@@ -43,7 +47,10 @@ public class ActiveTaskList extends AbstractTaskList {
 	 */
 	@Override
 	public void setTaskListName(String name) {
-
+		if (name != ACTIVE_TASKS_NAME) {
+			throw new IllegalArgumentException("The Active Tasks list may not be edited.");
+		}
+		super.setTaskListName(name);
 	}
 
 	/**
@@ -55,14 +62,23 @@ public class ActiveTaskList extends AbstractTaskList {
 	 */
 	@Override
 	public String[][] getTasksAsArray() {
-		// TODO Auto-generated method stub
-		return null;
+		String[][] tasks2d = new String[getTasks().size()][2];
+		for (int i = 0; i < getTasks().size(); i++) {
+			Task rowTask = getTasks().get(i);
+			tasks2d[i][0] = rowTask.getTaskListName();
+			tasks2d[i][1] = rowTask.getTaskName();
+		}
+		return tasks2d;
 	}
 
 	/**
-	 * Clears the ActiveTaskList of all Tasks.
+	 * Clears the ActiveTaskList of all Tasks. Iterates through the tasks in the
+	 * list and removes them.
 	 */
 	public void clearTasks() {
-
+		int size = getTasks().size();
+		for (int i = 0; i < size; i++) {
+			getTasks().remove(0);
+		}
 	}
 }

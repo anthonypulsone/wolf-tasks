@@ -20,79 +20,58 @@ public class TaskTest {
 	 */
 	@Test
 	public void testTask() {
-		fail("Not yet implemented");
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		
+		assertEquals("Walk Dog", task.getTaskName());
+		assertEquals("Walk Fluffy to the dog park", task.getTaskDescription());
+		assertFalse(task.isActive());
+		assertFalse(task.isRecurring());
+		
+		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
+		assertEquals("Exercise", task2.getTaskName());
+		assertEquals("Go for a run at the greenway", task2.getTaskDescription());
+		assertTrue(task2.isActive());
+		assertTrue(task2.isRecurring());
+		
+		Task task3 = null;
+		try {
+			task3 = new Task(null, "Go for a run at the greenway", true, true);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertNull(task3);
+			assertEquals("Incomplete task information.", e.getMessage());
+		}
+		
+		Task task4 = null;
+		try {
+			task4 = new Task("Walk Dog", null, true, true);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertNull(task4);
+			assertEquals("Incomplete task information.", e.getMessage());
+		}
+		
 	}
 
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#getTaskName()}.
-	 */
-	@Test
-	public void testGetTaskName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#setTaskName()}.
-	 */
-	@Test
-	public void testSetTaskName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#getTaskDescription()}.
-	 */
-	@Test
-	public void testGetTaskDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#setTaskDescription()}.
-	 */
-	@Test
-	public void testSetTaskDescription() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#isRecurring()}.
-	 */
-	@Test
-	public void testIsRecurring() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#setRecurring(boolean)}.
-	 */
-	@Test
-	public void testSetRecurring() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#isActive()}.
-	 */
-	@Test
-	public void testIsActive() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#setActive(boolean)}.
-	 */
-	@Test
-	public void testSetActive() {
-		fail("Not yet implemented");
-	}
-
+	
 	/**
 	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#getTaskListName()}.
 	 */
 	@Test
 	public void testGetTaskListName() {
-		fail("Not yet implemented");
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		// empty taskLists
+		assertEquals("Walk Dog", task.getTaskName());
+		assertEquals("Walk Fluffy to the dog park", task.getTaskDescription());
+		assertFalse(task.isActive());
+		assertFalse(task.isRecurring());
+		
+		assertEquals("", task.getTaskListName());
+		// test with TaskList in taskLists
+		// TaskList tl = new TaskList("Nam")
+		// task.addTaskList(tl);
+		
+		// test with multiple TaskLists in taskLists
 	}
 
 	/**
@@ -100,7 +79,14 @@ public class TaskTest {
 	 */
 	@Test
 	public void testAddTaskList() {
-		fail("Not yet implemented");
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		// Try to add null task list catch IAE
+		try {
+			task.addTaskList(null);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("", task.getTaskListName());
+		}
 	}
 
 	/**
@@ -108,7 +94,12 @@ public class TaskTest {
 	 */
 	@Test
 	public void testCompleteTask() {
-		fail("Not yet implemented");
+		// non recurring
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		task.completeTask();
+		// recurring
+		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
+		task2.completeTask();
 	}
 
 	/**
@@ -116,7 +107,19 @@ public class TaskTest {
 	 */
 	@Test
 	public void testClone() {
-		fail("Not yet implemented");
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		// try task with no TaskList
+		Task clone = null;
+		try {
+			clone = (Task) task.clone();
+			fail();
+		} catch (CloneNotSupportedException e) {
+			assertNull(clone);
+		}
+		
+		// task with TaskList
+		
+		// task with multiple TaskLists
 	}
 
 	/**
@@ -124,7 +127,14 @@ public class TaskTest {
 	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+		assertEquals("* Walk Dog\nWalk Fluffy to the dog park", task.toString());
+		task.setActive(true);
+		assertEquals("* Walk Dog,active\nWalk Fluffy to the dog park", task.toString());
+		task.setRecurring(true);
+		assertEquals("* Walk Dog,recurring,active\nWalk Fluffy to the dog park", task.toString());
+		task.setActive(false);
+		assertEquals("* Walk Dog,recurring\nWalk Fluffy to the dog park", task.toString());
 	}
 
 }

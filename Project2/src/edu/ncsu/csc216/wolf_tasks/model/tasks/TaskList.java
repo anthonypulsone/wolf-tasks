@@ -4,7 +4,10 @@
 package edu.ncsu.csc216.wolf_tasks.model.tasks;
 
 /**
- * TaskList class is the object for user created TaskLists
+ * TaskList class is the object for user created TaskLists. Extends
+ * AbstractTaskList, overrides the abstract method getTasksAsArray and
+ * implements Comparable for TaskList and the compareTo to method for TaskList.
+ * Constructor passes both parameters to super.
  * 
  * @author anthonypulsone
  *
@@ -17,31 +20,38 @@ public class TaskList extends AbstractTaskList implements Comparable<TaskList> {
 	 * 
 	 * @param name  the name for the TaskList
 	 * @param count the count of completed Tasks
+	 * @throws IllegalArgumentException if passed from super if name is null or
+	 *                                  count less than 0
 	 */
 	public TaskList(String name, int count) {
 		super(name, count);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Returns a 2D String array where the first column is the priority of the Task,
-	 * starting at 1, and the name of the Task.
+	 * Overrides getTasksAsArray abstract method in super. Returns a 2D String array
+	 * where the first column is the priority of the Task, starting at 1, and the
+	 * name of the Task.
 	 */
 	@Override
 	public String[][] getTasksAsArray() {
-		// TODO Auto-generated method stub
-		return null;
+		String[][] tasks2d = new String[getTasks().size()][2];
+		for (int i = 0; i < getTasks().size(); i++) {
+			Task rowTask = getTasks().get(i);
+			tasks2d[i][0] = Integer.toString(i + 1);
+			tasks2d[i][1] = rowTask.getTaskName();
+		}
+		return tasks2d;
 	}
 
 	/**
-	 * Compares the names of the TaskLists
+	 * Overrides default compareTo to provide functionality for implemented
+	 * Comparable interface on TaskLists. Compares the names of the TaskLists
 	 * 
 	 * @return returns negative int if before, 0 if equal, and positive int if after
 	 */
 	@Override
 	public int compareTo(TaskList list) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getTaskListName().toLowerCase().compareTo(list.getTaskListName().toLowerCase());
 	}
 
 }

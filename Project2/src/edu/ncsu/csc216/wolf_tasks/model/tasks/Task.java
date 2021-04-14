@@ -41,7 +41,6 @@ public class Task implements Cloneable {
 		setRecurring(recurring);
 		setActive(active);
 		taskLists = new SwapList<AbstractTaskList>();
-
 	}
 
 	/**
@@ -163,7 +162,7 @@ public class Task implements Cloneable {
 				alreadyAdded = true;
 			}
 		}
-		if (alreadyAdded) {
+		if (!alreadyAdded) {
 			taskLists.add(taskList);
 		}
 	}
@@ -176,7 +175,6 @@ public class Task implements Cloneable {
 	 */
 	public void completeTask() {
 		for (int i = 0; i < taskLists.size(); i++) {
-			
 			try {
 				taskLists.get(i).completeTask((Task) clone());
 				if (isRecurring()) {
@@ -219,7 +217,10 @@ public class Task implements Cloneable {
 	 * @return String representation of the Task
 	 */
 	public String toString() {
-		String rtn = "* " + getTaskName() + ",";
+		String rtn = "* " + getTaskName();
+		if (isRecurring() || isActive()) {
+			rtn += ",";
+		}
 		if (isRecurring()) {
 			rtn += "recurring";
 		}
