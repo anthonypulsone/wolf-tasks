@@ -219,6 +219,7 @@ public class SwapListTest {
 		list.moveToFront(10);
 		assertEquals(list.get(0), "Pineapple");
 		assertEquals(list.get(1), "Grapefruit");
+		assertEquals(list.get(10), "Coconuts");
 		// check size is still same
 		assertEquals(11, list.size());
 	}
@@ -256,6 +257,7 @@ public class SwapListTest {
 		list.moveToBack(0);
 		assertEquals(list.get(9), "Grapefruit");
 		assertEquals(list.get(10), "Bananas");
+		assertEquals("Apples", list.get(0));
 		
 		// check size is still same
 		assertEquals(11, list.size());

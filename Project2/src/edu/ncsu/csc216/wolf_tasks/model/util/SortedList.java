@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.wolf_tasks.model.util;
 
+
+
 /**
  * Custom LinkedList that implements the ISortedList interface. List maintains
  * sorted order by always adding in the correct position. Contains
@@ -11,7 +13,7 @@ package edu.ncsu.csc216.wolf_tasks.model.util;
 public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 
 	/** reference to the front LinkedNode of the LinkedList */
-	private E front;
+	private ListNode front;
 	/** the number of elements stored in LinkedNodes */
 	private int size;
 
@@ -25,6 +27,19 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	}
 
 	/**
+	 * Private helper method that checks that the index is in bounds
+	 * 
+	 * @param idx the index being checked for legality of bounds
+	 * @throws IndexOutOfBoundsException if index is greater than or equal to size
+	 *                                   or less than 0
+	 */
+	private void checkIndex(int idx) {
+		if (idx < 0 || idx >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+	}
+	
+	/**
 	 * Adds the element to the list in sorted order.
 	 * 
 	 * @param element element to add
@@ -33,8 +48,24 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	@Override
 	public void add(E element) {
-		// TODO Auto-generated method stub
-
+		if (element == null) {
+			throw new NullPointerException();
+		}
+		if (contains(element)) {
+			throw new IllegalArgumentException();
+		}
+		if (front == null) {
+			front = new ListNode(element);
+		} else if (element.compareTo(front.data) <= 0) {
+			front = new ListNode(element, front);
+		} else {
+			ListNode current = front;
+			while(current.next != null && current.next.data.compareTo(element) <= 0) {
+				current = current.next;
+			}
+			current.next = new ListNode(element, current.next);
+		}
+		size++;
 	}
 
 	/**
@@ -47,8 +78,22 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	@Override
 	public E remove(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+		checkIndex(idx);
+		E value = null;
+		if (idx == 0) { // special case where removing front of list
+			value = front.data;
+			front = front.next;
+		} else {
+			// removing elsewhere 
+			ListNode current = front;
+			for (int i = 0; i < idx - 1; i++) {
+				current = current.next;
+			}
+			value = current.next.data;
+			current.next = current.next.next;
+		}
+		size--;
+		return value;
 	}
 
 	/**
@@ -59,7 +104,20 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	@Override
 	public boolean contains(E element) {
-		// TODO Auto-generated method stub
+		if (element == null || front == null) {
+			return false;
+		}
+		if (front.data.equals(element)) { // check if front contains the element
+			return true;
+		} else { // if not then we will iterate through the nodes 
+			ListNode current = front;
+			while (current.next != null) {
+				current = current.next;
+				if (current.data.equals(element)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -72,8 +130,12 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	@Override
 	public E get(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+		checkIndex(idx);
+		ListNode current = front;
+		for (int i = 0; i < idx; i++) {
+			current = current.next;
+		}
+		return current.data;
 	}
 
 	/**
@@ -83,8 +145,7 @@ public class SortedList<E extends Comparable<E>> implements ISortedList<E> {
 	 */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	/**
