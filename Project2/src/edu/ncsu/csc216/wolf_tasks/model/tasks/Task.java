@@ -200,7 +200,7 @@ public class Task implements Cloneable {
 		try {
 			taskLists.get(0);
 		} catch (IndexOutOfBoundsException e) {
-			throw new CloneNotSupportedException();
+			throw new CloneNotSupportedException("Cannot clone.");
 		}
 		Task clone = new Task(taskName, taskDescription, recurring, active);
 		for (int i = 0; i < taskLists.size(); i++) {
