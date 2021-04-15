@@ -60,7 +60,7 @@ public abstract class AbstractTaskList {
 		if (name == null || "".equals(name)) {
 			throw new IllegalArgumentException("Invalid name.");
 		}
-		this.taskListName = name;
+		this.taskListName = name.trim();
 	}
 
 	/**
