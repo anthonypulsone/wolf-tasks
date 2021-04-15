@@ -42,6 +42,7 @@ public class NotebookWriterTest {
 		n.setCurrentTaskList("Test TL1");
 		n.addTask(t1);
 		n.saveNotebook(new File("test-files/ActualWriteNotebookTest.txt"));
+		assertFalse(n.isChanged());
 		checkFiles("test-files/ExpectedWriteNotebookTest.txt", "test-files/ActualWriteNotebookTest.txt");
 	}
 	

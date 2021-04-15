@@ -88,19 +88,20 @@ public class TaskTest {
 			assertEquals("", task.getTaskListName());
 		}
 	}
-
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#completeTask()}.
-	 */
-	@Test
-	public void testCompleteTask() {
-		// non recurring
-		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
-		task.completeTask();
-		// recurring
-		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
-		task2.completeTask();
-	}
+//
+//	/**
+//	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#completeTask()}.
+//	 */
+//	@Test
+//	public void testCompleteTask() {
+//		// non recurring
+//		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
+//		task.completeTask();
+//		// recurring
+//		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
+//		task2.completeTask();
+//		
+//	}
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#clone()}.
