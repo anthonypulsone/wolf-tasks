@@ -259,12 +259,5 @@ public class NotebookTest {
 		
 	}
 
-	/**
-	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook#editTask(int, java.lang.String, java.lang.String, boolean, boolean)}.
-	 */
-	@Test
-	public void testEditTask() {
-		fail("Not yet implemented");
-	}
 
 }
