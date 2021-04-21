@@ -58,8 +58,7 @@ public class NotebookReader {
 				//System.out.println();
 				notebook.addTaskList(processTaskList(taskListString));
 			} catch (IllegalArgumentException | NoSuchElementException e) {
-				fileReader.close();
-				throw new IllegalArgumentException("Unable to load file.");
+				//nothing
 			}
 		}
 		fileReader.close();
@@ -83,7 +82,11 @@ public class NotebookReader {
 		
 		taskListScanner.useDelimiter("\\r?\\n?[*]");
 		while (taskListScanner.hasNext()) {
-			taskList.addTask(processTask(taskList, taskListScanner.next()));
+			try {
+				taskList.addTask(processTask(taskList, taskListScanner.next()));
+			} catch (IllegalArgumentException e) {
+				//nothing
+			}
 		}
 		taskListScanner.close();
 		return taskList;
@@ -139,8 +142,6 @@ public class NotebookReader {
 			return task;
 		} catch (InputMismatchException e) {
 			throw new IllegalArgumentException();
-			
-		
 		}
 	}
 }
