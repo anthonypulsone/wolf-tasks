@@ -46,6 +46,18 @@ public class NotebookReaderTest {
 		
 		assertEquals("CSC 226", n.getCurrentTaskList().getTaskListName());
 
+		Notebook n2 = NotebookReader.readNodebookFile(new File("test-files/notebook0.txt"));
+		
+		assertEquals("Summer Plans", n2.getNotebookName());
+		assertEquals(1, n2.getTaskListsNames().length);
+		Notebook n3 = null;
+		try {
+			n3 = NotebookReader.readNodebookFile(new File("test-files/notavalidfile90adje.txt"));
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Unable to load file.", e.getMessage());
+			assertNull(n3);
+		}
 	}
 
 }
