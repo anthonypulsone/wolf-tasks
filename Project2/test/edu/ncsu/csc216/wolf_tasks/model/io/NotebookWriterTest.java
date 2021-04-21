@@ -29,6 +29,10 @@ public class NotebookWriterTest {
 	 */
 	@Test
 	public void testWriteNotebookFile() {
+		NotebookWriter writer = new NotebookWriter();
+		
+		assertNotNull(writer);
+		
 		Notebook n = new Notebook("Test Notebook");
 		TaskList tl1 = new TaskList("Test TL1", 0);
 		n.addTaskList(tl1);

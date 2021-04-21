@@ -24,6 +24,11 @@ public class NotebookReaderTest {
 	 */
 	@Test
 	public void testReadNodebookFile() {
+		
+		NotebookReader reader = new NotebookReader();
+		
+		assertNotNull(reader);
+		
 		Notebook n = NotebookReader.readNodebookFile(new File("test-files/notebook1.txt"));
 		
 		assertEquals("School", n.getNotebookName());
