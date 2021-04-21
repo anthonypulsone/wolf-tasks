@@ -7,7 +7,7 @@ import edu.ncsu.csc216.wolf_tasks.model.util.SwapList;
  * AbstractTaskList class is an abstract class at the top of the hierarchy for
  * task lists. The AbstractTaskList knows its taskListName, the ISwapList of
  * Tasks, and the number of completed tasks. This class is to be extended by
- * ActiveTaskList and TaskList
+ * ActiveTaskList and TaskList.
  * 
  * @author anthonypulsone
  *

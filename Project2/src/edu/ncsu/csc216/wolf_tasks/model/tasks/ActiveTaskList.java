@@ -27,7 +27,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * message “Cannot add task to Active Tasks.”
 	 * 
 	 * @param task the Task that is being added
-	 * @throw IllegalArgumentException if the task is not active
+	 * @throws IllegalArgumentException if the task is not active
 	 */
 	@Override
 	public void addTask(Task task) {
@@ -58,7 +58,7 @@ public class ActiveTaskList extends AbstractTaskList {
 	 * that the Task belongs to (or at least the TaskList at index 0) and the name
 	 * of the Task.
 	 * 
-	 * @returns 2D Array of active Tasks in the ActiveTaskList
+	 * @return 2D Array of active Tasks in the ActiveTaskList
 	 */
 	@Override
 	public String[][] getTasksAsArray() {
