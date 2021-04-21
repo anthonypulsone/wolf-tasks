@@ -55,8 +55,6 @@ public class NotebookReader {
 		while (fileReader.hasNext()) {
 			try {
 				String taskListString = fileReader.next();
-				//System.out.println(taskListString);
-				//System.out.println();
 				notebook.addTaskList(processTaskList(taskListString));
 			} catch (IllegalArgumentException | NoSuchElementException e) {
 				//nothing
