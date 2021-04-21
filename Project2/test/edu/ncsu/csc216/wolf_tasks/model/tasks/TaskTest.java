@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import edu.ncsu.csc216.wolf_tasks.model.notebook.Notebook;
+
 /**
  * Test class for Task
  * 
@@ -88,12 +90,37 @@ public class TaskTest {
 			assertEquals("", task.getTaskListName());
 		}
 	}
-//
-//	/**
-//	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#completeTask()}.
-//	 */
-//	@Test
-//	public void testCompleteTask() {
+
+	/**
+	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#completeTask()}.
+	 */
+	@Test
+	public void testCompleteTask() {
+		Notebook n = new Notebook("Test Notebook");
+		TaskList tl1 = new TaskList("Test TL1", 0);
+		
+		n.addTaskList(tl1);
+		Task t1 = new Task("Task 1", "Test Task 1", false, false);
+		Task t2 = new Task("Task 2", "Test Task 2", false, true);
+		Task t3 = new Task("Task 3", "Test Task 3", true, true);
+		
+		n.addTask(t1);
+		n.addTask(t2);
+		n.addTask(t3);
+		
+		assertEquals("Task 1", tl1.getTasksAsArray()[0][1]);
+		assertEquals("Task 2", tl1.getTasksAsArray()[1][1]);
+		assertEquals("Task 3", tl1.getTasksAsArray()[2][1]);
+		
+		
+		t1.completeTask();
+		assertEquals(1, tl1.getCompletedCount());
+		assertEquals(2, tl1.getTasksAsArray().length);
+		assertEquals("Task 2", tl1.getTasksAsArray()[0][1]);
+		assertEquals("Task 3", tl1.getTasksAsArray()[1][1]);
+		
+		
+//		
 //		// non recurring
 //		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
 //		task.completeTask();
@@ -101,7 +128,7 @@ public class TaskTest {
 //		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
 //		task2.completeTask();
 //		
-//	}
+	}
 
 	/**
 	 * Test method for {@link edu.ncsu.csc216.wolf_tasks.model.tasks.Task#clone()}.
