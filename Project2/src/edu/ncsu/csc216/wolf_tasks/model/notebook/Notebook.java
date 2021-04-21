@@ -182,6 +182,7 @@ public class Notebook {
 			}
 		}
 		if (!found) { // if didn't find list in the taskLists set to activeTaskList
+			this.getActiveTaskList();
 			currentTaskList = activeTaskList;
 		}
 
