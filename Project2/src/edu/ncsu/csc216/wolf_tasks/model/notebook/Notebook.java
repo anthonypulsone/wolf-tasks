@@ -222,11 +222,6 @@ public class Notebook {
 				this.addTaskList(editedTaskList);
 			}
 		}
-		
-		
-		currentTaskList.setTaskListName(name);
-		setChanged(true);
-
 	}
 
 	/**
