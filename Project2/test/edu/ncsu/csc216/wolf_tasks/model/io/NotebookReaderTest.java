@@ -40,7 +40,7 @@ public class NotebookReaderTest {
 		n.setCurrentTaskList("CSC 226");
 		
 		assertEquals("CSC 226", n.getCurrentTaskList().getTaskListName());
-		
+
 	}
 
 }

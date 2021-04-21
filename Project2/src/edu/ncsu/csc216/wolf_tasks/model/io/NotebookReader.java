@@ -94,7 +94,7 @@ public class NotebookReader {
 	
 	private static Task processTask(AbstractTaskList taskList, String taskString) {
 		Scanner taskScanner = new Scanner(taskString);
-		Scanner taskInfo = new Scanner(taskScanner.nextLine().trim());
+		Scanner taskInfo = new Scanner(taskScanner.nextLine());
 		taskInfo.useDelimiter(",");
 		Task task = null;
 		try {
