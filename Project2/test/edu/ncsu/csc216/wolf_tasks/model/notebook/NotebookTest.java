@@ -259,5 +259,46 @@ public class NotebookTest {
 		
 	}
 
+	/**
+	 * Test method for editTask
+	 */
+	@Test
+	public void testEditTask() {
+		Notebook n = new Notebook("Test Notebook");
+		TaskList tl1 = new TaskList("Test TL1", 0);
+		
+		n.addTaskList(tl1);
+		Task t1 = new Task("Task 1", "Test Task 1", false, false);
+		Task t2 = new Task("Task 2", "Test Task 2", false, true);
+		Task t3 = new Task("Task 3", "Test Task 3", false, false);
+		
+		n.addTask(t1);
+		n.addTask(t2);
+		n.addTask(t3);
+		// edit first task change name to be last, change to recurring and active
+		n.editTask(0, "Z Task 1", "Test Task 1", true, true);
+		assertEquals("Z Task 1", n.getCurrentTaskList().getTask(0).getTaskName());
+		assertTrue(n.getCurrentTaskList().getTask(0).isRecurring());
+		assertEquals("Z Task 1", n.getCurrentTaskList().getTask(0).getTaskName());
+		
+		// edit 2nd task (now Task 3) Change to be first task and set active
+		n.editTask(2, "A Task 3", "Test Task 3 Changed", false, true);
+		
+		assertEquals("A Task 3", n.getCurrentTaskList().getTask(2).getTaskName());
+		assertEquals("Test Task 3 Changed", n.getCurrentTaskList().getTask(2).getTaskDescription());
+		
+		// edit 2nd task (now Task 2) change to be first and set inactive
+		n.editTask(1, "95 Task 2", "Test Task 2 ", false, false);
+		assertEquals("A Task 3", n.getCurrentTaskList().getTask(2).getTaskName());
+		assertEquals("Z Task 1", n.getCurrentTaskList().getTask(0).getTaskName());
+		assertEquals("95 Task 2", n.getCurrentTaskList().getTask(1).getTaskName());
+	
+		n.setCurrentTaskList("Active Tasks");
+		
+		assertEquals(2, n.getCurrentTaskList().getTasksAsArray().length);
+		assertEquals("A Task 3", n.getCurrentTaskList().getTask(1).getTaskName());
+		assertEquals("Z Task 1", n.getCurrentTaskList().getTask(0).getTaskName());
+		
+	}
 
 }

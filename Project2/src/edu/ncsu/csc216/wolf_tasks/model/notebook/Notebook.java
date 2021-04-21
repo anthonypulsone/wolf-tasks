@@ -283,9 +283,7 @@ public class Notebook {
 			task.setTaskDescription(taskDescription);
 			task.setRecurring(recurring);
 			task.setActive(active);
-			if (task.isActive()) {
-				this.getActiveTaskList();
-			}
+			this.getActiveTaskList();
 			setChanged(true);
 		}
 	}
