@@ -216,7 +216,14 @@ public class Notebook {
 			if (name.toLowerCase().equals(taskLists.get(i).getTaskListName().toLowerCase())) {
 				throw new IllegalArgumentException("Invalid name.");
 			}
+			if (currentTaskList.getTaskListName() == taskLists.get(i).getTaskListName()) {
+				TaskList editedTaskList = taskLists.remove(i);
+				editedTaskList.setTaskListName(name);
+				this.addTaskList(editedTaskList);
+			}
 		}
+		
+		
 		currentTaskList.setTaskListName(name);
 		setChanged(true);
 
