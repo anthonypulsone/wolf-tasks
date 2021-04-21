@@ -130,7 +130,7 @@ public class NotebookReader {
 			}
 			String taskDescription = "";
 			while (taskScanner.hasNext()) {
-				taskDescription += taskScanner.nextLine() + "/n";
+				taskDescription += taskScanner.nextLine() + "\n";
 			}
 			task = new Task(taskName, taskDescription, recurring, active);
 			task.addTaskList(taskList);

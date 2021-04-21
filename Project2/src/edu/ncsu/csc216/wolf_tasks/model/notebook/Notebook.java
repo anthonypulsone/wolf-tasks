@@ -126,6 +126,7 @@ public class Notebook {
 		}
 		taskLists.add(taskList);
 		currentTaskList = taskList;
+		this.getActiveTaskList();
 		setChanged(true);
 	}
 

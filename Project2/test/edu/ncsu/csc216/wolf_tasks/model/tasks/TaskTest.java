@@ -119,15 +119,6 @@ public class TaskTest {
 		assertEquals("Task 2", tl1.getTasksAsArray()[0][1]);
 		assertEquals("Task 3", tl1.getTasksAsArray()[1][1]);
 		
-		
-//		
-//		// non recurring
-//		Task task = new Task("Walk Dog", "Walk Fluffy to the dog park", false, false);
-//		task.completeTask();
-//		// recurring
-//		Task task2 = new Task("Exercise", "Go for a run at the greenway", true, true);
-//		task2.completeTask();
-//		
 	}
 
 	/**
